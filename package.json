@@ -18,5 +18,10 @@
   "bugs": {
     "url": "https://github.com/elasthink/gulp-ejs-compiler/issues"
   },
-  "homepage": "https://github.com/elasthink/gulp-ejs-compiler#readme"
+  "homepage": "https://github.com/elasthink/gulp-ejs-compiler#readme",
+  "dependencies": {
+    "ejs": "^2.4.1",
+    "gulp-util": "^3.0.7",
+    "through2": "^2.0.1"
+  }
 }
