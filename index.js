@@ -1,8 +1,9 @@
 'use strict';
 
-var through = require('through2');
-var gutil = require('gulp-util');
-var ejs = require('ejs');
+var ejs     = require('ejs'),
+    path    = require('path'),
+    gutil   = require('gulp-util'),
+    through = require('through2');
 
 module.exports = function (options, settings) {
     options = options || {};
