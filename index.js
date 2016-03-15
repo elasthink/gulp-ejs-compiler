@@ -30,7 +30,7 @@ module.exports = function (options, settings) {
             if (settings.namespace) {
                 var templateName = ((path.sep === '/') ? file.relative : file.relative.replace(path.sep, '/'))
                     .slice(0, -path.extname(file.path).length);
-                out = settings.namespace + '[' + templateName + ']=' + out + ';';
+                out = settings.namespace + '["' + templateName + '"]=' + out + ';';
             }
             file.contents = new Buffer(out);
 
