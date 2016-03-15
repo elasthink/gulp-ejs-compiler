@@ -1,0 +1,22 @@
+{
+  "name": "gulp-ejs-compiler",
+  "version": "1.0.0",
+  "description": "Gulp plugin for compile EJS templates.",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elasthink/gulp-ejs-compiler.git"
+  },
+  "keywords": [
+    "gulpplugin",
+    "gulp",
+    "ejs"
+  ],
+  "author": "terangel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/elasthink/gulp-ejs-compiler/issues"
+  },
+  "homepage": "https://github.com/elasthink/gulp-ejs-compiler#readme"
+}
