@@ -26,11 +26,15 @@ module.exports = function (options, settings) {
         options.filename = file.path;
 
         try {
-            var out = ejs.compile(file.contents.toString(), options).toString();
+            var codeString = ejs.compile(file.contents.toString(), options).toString();
             if (settings.namespace) {
                 var templateName = ((path.sep === '/') ? file.relative : file.relative.replace(path.sep, '/'))
                     .slice(0, -path.extname(file.path).length);
-                out = settings.namespace + '["' + templateName + '"]=' + out + ';';
+                if (typeof(settings.namespace) === 'function') {
+                    codeString = settings.namespace(templateName, codeString);
+                } else {
+                    codeString = settings.namespace + '["' + templateName + '"]=' + out + ';';
+                }
             }
             file.contents = new Buffer(out);
 
