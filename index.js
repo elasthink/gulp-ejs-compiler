@@ -33,10 +33,10 @@ module.exports = function (options, settings) {
                 if (typeof(settings.namespace) === 'function') {
                     codeString = settings.namespace(templateName, codeString);
                 } else {
-                    codeString = settings.namespace + '["' + templateName + '"]=' + out + ';';
+                    codeString = settings.namespace + '["' + templateName + '"]=' + codeString + ';';
                 }
             }
-            file.contents = new Buffer(out);
+            file.contents = new Buffer(codeString);
 
             if (typeof settings.ext !== 'undefined') {
                 file.path = gutil.replaceExtension(file.path, settings.ext);
