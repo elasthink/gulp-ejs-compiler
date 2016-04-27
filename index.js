@@ -42,7 +42,7 @@ module.exports = function (options, settings) {
                 file.path = gutil.replaceExtension(file.path, settings.ext);
             }
         } catch (err) {
-            this.emit('error', new gutil.PluginError('gulp-ejs', err, {showStack: true}));
+            this.emit('error', new gutil.PluginError('gulp-ejs', err));
         }
 
         this.push(file);
