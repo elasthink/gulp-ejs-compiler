@@ -28,7 +28,7 @@ module.exports = function (options, settings) {
         try {
             var codeString = ejs.compile(file.contents.toString(), options).toString();
             if (settings.namespace) {
-                var templateName = ((path.sep === '/') ? file.relative : file.relative.replace(path.sep, '/'))
+                var templateName = ((path.sep === '\\') ? file.relative.replace(/\\/g, '/') : file.relative)
                     .slice(0, -path.extname(file.path).length);
                 if (typeof(settings.namespace) === 'function') {
                     codeString = settings.namespace(templateName, codeString);
