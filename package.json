@@ -3,6 +3,7 @@
   "version": "1.0.3",
   "description": "Gulp plugin for compile EJS templates.",
   "main": "index.js",
+  "private": true,
   "scripts": {},
   "repository": {
     "type": "git",
