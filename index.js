@@ -1,53 +1,51 @@
 'use strict';
 
-var ejs     = require('ejs'),
+const
+    ejs     = require('ejs'),
     path    = require('path'),
-    gutil   = require('gulp-util'),
+    util    = require('gulp-util'),
     through = require('through2');
 
-module.exports = function (options, settings) {
-    options = options || {};
-    settings = settings || {};
+const
+    PLUGIN_NAME = 'gulp-ejs-compiler2';
 
-    return through.obj(function (file, enc, cb) {
+module.exports = function (ops = {}) {
+    return through.obj(function (file, encoding, callback) {
         if (file.isNull()) {
-            this.push(file);
-            return cb();
+            callback(null, file);
+            return;
         }
 
         if (file.isStream()) {
-            this.emit(
-                'error',
-                new gutil.PluginError('gulp-ejs', 'Streaming not supported')
-            );
+            callback(new util.PluginError(PLUGIN_NAME, 'Streaming not supported'));
+            return;
         }
 
-        options = file.data || options;
-        options.filename = file.path;
+        ops = Object.assign({
+            client: true,
+            compileDebug: false
+        }, ops);
+
+        ops.filename = file.path;
 
         try {
-            var codeString = ejs.compile(file.contents.toString(), options).toString();
-            if (settings.namespace) {
-                var templateName = ((path.sep === '\\') ? file.relative.replace(/\\/g, '/') : file.relative)
-                    .slice(0, -path.extname(file.path).length);
-                if (typeof(settings.namespace) === 'function') {
-                    codeString = settings.namespace(templateName, codeString);
+            let code = ejs.compile(file.contents.toString(), ops).toString();
+            if (ops.namespace && file.path) {
+                let name = ((path.sep === '\\') ? file.relative.replace(/\\/g, '/')
+                    : file.relative).slice(0, -path.extname(file.path).length);
+                if (typeof ops.namespace === 'function') {
+                    code = ops.namespace(name, code);
                 } else {
-                    codeString = settings.namespace + '["' + templateName + '"]=' + codeString + ';';
+                    code = `${ops.namespace}["${name}"]=${code};`;
                 }
             }
-            file.contents = new Buffer(codeString);
-
-            if (typeof settings.ext !== 'undefined') {
-                file.path = gutil.replaceExtension(file.path, settings.ext);
-            }
+            file.contents = new Buffer(code);
+            this.push(file);
         } catch (err) {
-            this.emit('error', new gutil.PluginError('gulp-ejs', err));
+            this.emit('error', new util.PluginError(PLUGIN_NAME, err, {
+                fileName: file.path
+            }));
         }
-
-        this.push(file);
-        cb();
+        callback();
     });
-};
-
-
+}

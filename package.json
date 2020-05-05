@@ -1,18 +1,23 @@
 {
   "name": "gulp-ejs-compiler",
-  "version": "1.0.3",
-  "description": "Gulp plugin for compile EJS templates.",
+  "version": "2.0.0",
+  "description": "Precompile EJS templates.",
   "main": "index.js",
-  "private": true,
-  "scripts": {},
+  "scripts": {
+    "test": "test.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/elasthink/gulp-ejs-compiler.git"
   },
+  "private": true,
   "keywords": [
-    "gulpplugin",
     "gulp",
-    "ejs"
+    "plugin",
+    "ejs",
+    "template",
+    "compile",
+    "precompile"
   ],
   "author": "terangel",
   "license": "MIT",
@@ -21,8 +26,13 @@
   },
   "homepage": "https://github.com/elasthink/gulp-ejs-compiler#readme",
   "dependencies": {
-    "ejs": "^2.4.1",
-    "gulp-util": "^3.0.7",
-    "through2": "^2.0.1"
+    "ejs": "^3.1.2",
+    "gulp-util": "^3.0.8",
+    "through2": "^3.0.1"
+  },
+  "devDependencies": {
+    "mocha": "^7.1.2",
+    "vinyl": "^2.2.0",
+    "vinyl-file": "^3.0.0"
   }
 }
